@@ -30,7 +30,6 @@ async function Add(event) {
     event.preventDefault();
     let to_fav_button = event.target;
     let url = to_fav_button.href;
-    console.log(url);
     try {
         let response = await makeRequest(url, 'GET');
         console.log(response);
@@ -41,8 +40,7 @@ async function Add(event) {
     }
 
     to_fav_button.classList.add('hide');
-    const deleteBtn = to_fav_button.parentElement
-        .getElementsByClassName('remove')[0];
+    const deleteBtn = to_fav_button.parentElement.getElementsByClassName('remove')[0];
     deleteBtn.classList.remove('hide');
 }
 
@@ -61,8 +59,7 @@ async function Remove(event) {
     }
 
     delete_from_fav.classList.add('hide');
-    const to_fav_button = delete_from_fav.parentElement
-        .getElementsByClassName('add')[0];
+    const to_fav_button = delete_from_fav.parentElement.getElementsByClassName('add')[0];
    to_fav_button.classList.remove('hide');
 }
 

@@ -27,10 +27,10 @@
                 {% if photo|liked_by:user  %}
                     <a class="add hide" href="{% url 'api:favorites_add' photo.pk%}">
                         Add to Favorites</a>
-                    <a class=" remove show" href="{% url 'api:favorites_remove' photo.pk%}">
+                    <a class=" remove " href="{% url 'api:favorites_remove' photo.pk%}">
                          Delete from Favorites</a>
                 {% else %}
-                    <a class="add show" href="{% url 'api:favorites_add' photo.pk%}">
+                    <a class="add " href="{% url 'api:favorites_add' photo.pk%}">
                         Add to Favorites</a>
                     <a class="remove hide" href="{% url 'api:favorites_remove' photo.pk%}">
                          Delete from Favorites</a>
