@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, ListView
 from django.urls import reverse, reverse_lazy
@@ -29,9 +29,7 @@ class PhotoView(DetailView):
         return super().get_context_data(**kwargs)
 
 
-class PhotoCreateView(
-    # PermissionRequiredMixin,
-    CreateView):
+class PhotoCreateView(LoginRequiredMixin,CreateView):
     model = Photo
     form_class = PhotoForm
     template_name = 'Photos/photo_create.html'
@@ -49,23 +47,26 @@ class PhotoCreateView(
         return redirect('webapp:photo_view', pk=photo.pk)
 
 
-class PhotoUpdateView(
-    # PermissionRequiredMixin,
-    UpdateView):
+class PhotoUpdateView(PermissionRequiredMixin, UpdateView):
     model = Photo
     form_class = PhotoForm
     template_name = 'Photos/photo_update.html'
+    permission_required = 'webapp.change_photo'
 
-    # permission_required = 'webapp.change_product'
+    def has_permission(self):
+        photo = self.get_object()
+        return super().has_permission() or photo.author == self.request.user
 
     def get_success_url(self):
         return reverse('webapp:photo_view', kwargs={'pk': self.object.pk})
 
 
-class PhotoDeleteView(
-    # PermissionRequiredMixin,
-    DeleteView):
+class PhotoDeleteView(PermissionRequiredMixin,DeleteView):
     model = Photo
     template_name = 'Photos/photo_delete.html'
     success_url = reverse_lazy('webapp:index')
-    # permission_required = 'webapp.delete_product'
+    permission_required = 'webapp.delete_photo'
+
+    def has_permission(self):
+        photo = self.get_object()
+        return super().has_permission() or photo.author == self.request.user
