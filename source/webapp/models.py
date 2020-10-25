@@ -9,6 +9,14 @@ class Photo(models.Model):
     author = models.ForeignKey(get_user_model(), verbose_name='Автор', related_name='author_photos',
                                on_delete=models.CASCADE)
 
+    def is_in_favorite(self, user):
+        liked_by_user = self.favorite_photo.filter(author=user)
+        if liked_by_user.count() > 0:
+            return True
+        else:
+            return False
+
+
 
 class Favorite(models.Model):
     photo = models.ForeignKey(Photo,  verbose_name='Фото', related_name='favorite_photo', on_delete=models.CASCADE)

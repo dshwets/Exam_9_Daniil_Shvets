@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles likes %}
 
 {% block title %}View{% endblock %}
 
@@ -28,4 +29,17 @@
         <a href="{% url 'accounts:detail' user.pk %}">{{ user.author}}</a>
     {% endfor %}
     </p>
+    {% if user.is_authenticated %}
+    {% if photo|liked_by:user  %}
+        <a class="add hide" href="{% url 'api:favorites_add' photo.pk%}">
+            Add to Favorites</a>
+        <a class=" remove show" href="{% url 'api:favorites_remove' photo.pk%}">
+             Delete from Favorites</a>
+    {% else %}
+        <a class="add show" href="{% url 'api:favorites_add' photo.pk%}">
+            Add to Favorites</a>
+        <a class="remove hide" href="{% url 'api:favorites_remove' photo.pk%}">
+             Delete from Favorites</a>
+    {% endif %}
+{% endif %}
 {% endblock %}

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles likes %}
 
 {% block content %}
     <h1>Галлерея:</h1>
@@ -16,16 +17,32 @@
             <p>Автор: {{ photo.author }}</p>
             <p> Созданно: {{ photo.created_at }} </p>
             
-{#            {% if perms.webapp.change_product %}#}
+            {% if perms.webapp.change_photo %}
                 <p><a href="{% url 'webapp:photo_update' photo.pk %}">Update</a></p>
-{#            {% endif %}#}
-{#            {% if perms.webapp.delete_product %}#}
+            {% endif %}
+            {% if perms.webapp.delete_photo %}
                 <p><a href="{% url 'webapp:photo_delete' photo.pk %}">Delete</a></p>
-{#            {% endif %}#}
-{#            {% include 'partial/cart_add_form.html' %}#}
+            {% endif %}
+            {% if user.is_authenticated %}
+                {% if photo|liked_by:user  %}
+                    <a class="add hide" href="{% url 'api:favorites_add' photo.pk%}">
+                        Add to Favorites</a>
+                    <a class=" remove show" href="{% url 'api:favorites_remove' photo.pk%}">
+                         Delete from Favorites</a>
+                {% else %}
+                    <a class="add show" href="{% url 'api:favorites_add' photo.pk%}">
+                        Add to Favorites</a>
+                    <a class="remove hide" href="{% url 'api:favorites_remove' photo.pk%}">
+                         Delete from Favorites</a>
+                {% endif %}
+            {% endif %}
+
+
         </div>
     {% endfor %}
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
     {% endif %}
+{% endblock %}
+{% block scripts %}
 {% endblock %}
