@@ -12,7 +12,7 @@ app_name = 'api'
 
 urlpatterns = [
     path('favorites/add/<int:pk>/', AddToFavorite.as_view(), name='favorites_add'),
-    path('favorites/<int:pk>/delete/', RemoveFromFavorite.as_view(), name='favorites_remove'),
+    path('favorites/delete/<int:pk>/', RemoveFromFavorite.as_view(), name='favorites_remove'),
 
 
 ]
