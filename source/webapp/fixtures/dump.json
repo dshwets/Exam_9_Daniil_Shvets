@@ -39,14 +39,6 @@
 },
 {
   "model": "webapp.favorite",
-  "pk": 2,
-  "fields": {
-    "photo": 4,
-    "author": 2
-  }
-},
-{
-  "model": "webapp.favorite",
   "pk": 17,
   "fields": {
     "photo": 3,
@@ -58,14 +50,6 @@
   "pk": 18,
   "fields": {
     "photo": 4,
-    "author": 1
-  }
-},
-{
-  "model": "webapp.favorite",
-  "pk": 19,
-  "fields": {
-    "photo": 5,
     "author": 1
   }
 },
@@ -85,6 +69,15 @@
     "user": 3,
     "birth_date": null,
     "avatar": ""
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 3,
+  "fields": {
+    "user": 1,
+    "birth_date": "2020-10-25",
+    "avatar": "user_pics/\u0421\u043d\u0438\u043c\u043e\u043a_\u044d\u043a\u0440\u0430\u043d\u0430_\u043e\u0442_2020-05-20_17-50-34.png"
   }
 }
 ]

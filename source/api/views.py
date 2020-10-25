@@ -27,4 +27,4 @@ class RemoveFromFavorite(APIView):
         photo = get_object_or_404(Photo, pk=kwargs['pk'])
         favorite = get_object_or_404(Favorite, photo=photo, author=self.request.user)
         favorite.delete()
-        return Response({'pk': 'you succesfuly remove this photo from your favorite'})
+        return Response({'message': f'you succesfuly remove this photo( pk = {kwargs["pk"]}) from your favorite'})
