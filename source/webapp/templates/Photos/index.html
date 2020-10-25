@@ -13,8 +13,8 @@
                         <br>
                         {{ photo.signature }}
                 </p>
-{#            <p>Категория: {{ product.get_category_display }}</p>#}
-{#            <p>Осталось: {{ product.amount }} по {{ product.price  }} сом</p>#}
+            <p>Автор: {{ photo.author }}</p>
+            <p> Созданно: {{ photo.created_at }} </p>
             
 {#            {% if perms.webapp.change_product %}#}
                 <p><a href="{% url 'webapp:photo_update' photo.pk %}">Update</a></p>

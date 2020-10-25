@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, ListView
 from django.urls import reverse, reverse_lazy
 
@@ -22,10 +22,11 @@ class PhotoView(DetailView):
     model = Photo
     template_name = 'Photos/photo_view.html'
 
-    # чтоб товары, которых не осталось нельзя было и просмотреть
-    # это можно добавить вместо model = Product в Detail, Update и Delete View.
-    # def get_queryset(self):
-    #     return super().get_queryset().filter(amount__gt=0)
+    def get_context_data(self, **kwargs):
+        photo = get_object_or_404(Photo, pk=self.object.pk)
+        users_which_like = photo.favorite_photo.all()
+        kwargs['likes'] = users_which_like
+        return super().get_context_data(**kwargs)
 
 
 class PhotoCreateView(

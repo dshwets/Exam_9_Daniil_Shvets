@@ -20,5 +20,12 @@
         <br>
         {{ photo.signature }}
     </p>
+    <p>Автор: {{ photo.author }}</p>
+    <p> Созданно: {{ photo.created_at }} </p>
     </div>
+
+    <p>Users which like: {% for user in likes %}
+        <a href="{% url 'accounts:detail' user.pk %}">{{ user.author}}</a>
+    {% endfor %}
+    </p>
 {% endblock %}

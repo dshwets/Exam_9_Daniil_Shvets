@@ -60,7 +60,9 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     paginate_related_orphans = 0
 
     def get_context_data(self, **kwargs):
-        # articles = self.object.articles.order_by('-created_at')
+        favorites = self.object.author_favorites.all()
+        kwargs['favorites'] = favorites
+        print(favorites)
         # paginator = Paginator(articles, self.paginate_related_by, orphans=self.paginate_related_orphans)
         # page_number = self.request.GET.get('page', 1)
         # page = paginator.get_page(page_number)

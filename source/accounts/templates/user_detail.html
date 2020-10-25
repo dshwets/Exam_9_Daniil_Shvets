@@ -20,6 +20,18 @@
     <p>Дата рождения: {{ user_obj.profile.birth_date|date:'d.m.Y' }}</p>
     <p>Почта: {{ user_obj.email }}</p>
 
-{#    <h2 class="text-center clear">Статьи автора:</h2>#}
+    <h2 class="text-center clear">Favorites автора:</h2>
+        {% for favorite in favorites %}
+            <div>
+                <p>
+                <img src="{{ favorite.photo.photo_img.url }}" width="250" height="250"alt="photo">
+                <br>
+                {{ favorite.photo.signature }}
+                </p>
+                <p>Автор: {{ favorite.photo.author }}</p>
+                <p> Созданно: {{ favorite.photo.created_at }} </p>
+                </div>
+        {% endfor %}
+
 {#    {% include 'partial/article_list.html' %}#}
 {% endblock %}
